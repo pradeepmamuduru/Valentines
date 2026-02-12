@@ -1,60 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Valentine — Tejaswini 💖</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Valentine 💖</title>
+  <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
-  <!-- Background overlay -->
-  <div class="bg-overlay"></div>
+  <div class="overlay"></div>
 
-  <!-- Global audio (must be started by user gesture) -->
+  <!-- Background music -->
   <audio id="love-audio" src="love.mp3" loop preload="auto"></audio>
 
-  <!-- Global floating hearts container (all screens) -->
-  <div id="global-hearts" aria-hidden="true"></div>
+  <!-- Floating hearts + petals containers -->
+  <div id="global-hearts"></div>
+  <div id="petals"></div>
 
-  <!-- Falling petals container -->
-  <div id="petals" aria-hidden="true"></div>
-
-  <!-- Screen 1: First Card -->
-  <main id="screen-1" class="screen active" aria-live="polite">
-    <section class="card" id="first-card" role="dialog" aria-label="Valentine card">
-      <h1 class="title">Will you be my Valentine, <span class="name">Tejaswini</span>? 💖</h1>
-      <div class="button-row" id="button-row">
-        <button id="yes-btn" class="pill primary">Yes 💖</button>
-        <button id="no-btn" class="pill neutral">No 😜</button>
+  <!-- Screen 1 -->
+  <div id="screen-1" class="screen active">
+    <div class="card">
+      <h1>Will you be my Valentine, Tejaswini? 💖</h1>
+      <div class="buttons">
+        <button id="yes-btn" class="pill yes">Yes 💖</button>
+        <button id="no-btn" class="pill no">No 😜</button>
       </div>
-    </section>
-  </main>
+    </div>
+  </div>
 
-  <!-- Screen 2: Celebration -->
-  <main id="screen-2" class="screen" aria-hidden="true">
-    <section class="card large" id="second-card" role="region" aria-label="Celebration">
-      <h1 class="title big">Yaaay!!! 🎉💞<br/>You just made me the happiest person ❤️</h1>
-      <div class="controls">
-        <button id="back-to-1" class="pill secondary">Back</button>
-        <button id="to-3" class="pill primary">A message from Jungkook 💌</button>
+  <!-- Screen 2 -->
+  <div id="screen-2" class="screen">
+    <div class="card">
+      <h1>Yaaay!!! 🎉💞<br/>You just made me the happiest person ❤️</h1>
+      <div class="buttons">
+        <button id="back-to-1" class="pill">Back</button>
+        <button id="to-3" class="pill yes">A message from Jungkook 💌</button>
       </div>
-    </section>
-  </main>
+    </div>
+  </div>
 
-  <!-- Screen 3: Message -->
-  <main id="screen-3" class="screen" aria-hidden="true">
-    <section class="card large" id="third-card" role="region" aria-label="Message">
+  <!-- Screen 3 -->
+  <div id="screen-3" class="screen">
+    <div class="card">
       <div class="message-box">
         <p>Have a good day 🌸</p>
         <p>Take good sleep 😴</p>
         <p>Always smile ❤️</p>
         <p>I’m always proud of you 💖</p>
       </div>
-      <div class="controls">
-        <button id="back-to-2" class="pill secondary">Back</button>
+      <div class="buttons">
+        <button id="back-to-2" class="pill">Back</button>
       </div>
-    </section>
-  </main>
+    </div>
+  </div>
 
   <script src="script.js"></script>
 </body>

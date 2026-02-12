@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Valentine 💖</title>
   <link rel="stylesheet" href="style.css"/>
@@ -11,7 +11,7 @@
 
   <!-- First Screen -->
   <div class="card" id="first-card">
-    <h1>Will you be my Valentine, Tejaswini Gunumakondla? 💖</h1>
+    <h1 class="romantic-text">Will you be my Valentine, Tejaswini? 💖</h1>
     <div class="buttons">
       <button id="yes-btn">Yes 💖</button>
       <button id="no-btn">No 😜</button>
@@ -20,12 +20,29 @@
 
   <!-- Second Screen -->
   <div class="card hidden" id="second-card">
-    <h1>
-      Darling!!! 🎉💞<br/>
-      I knew you love...You are the Cutest!!❤️
+    <h1 class="romantic-text">
+      Yaaay!!! 🎉💞<br/>
+      You just made me the happiest person ❤️
     </h1>
-    <button id="back-btn">Back</button>
+    <div class="buttons">
+      <button id="back-btn">Back</button>
+      <button id="message-btn">A message from Jungkook 💌</button>
+    </div>
   </div>
+
+  <!-- Third Screen -->
+  <div class="card hidden" id="third-card">
+    <h1 class="romantic-text">
+      Have a good day 🌸<br/>
+      Take good sleep 😴<br/>
+      Always smile ❤️<br/>
+      I’m always proud of you 💖
+    </h1>
+    <button id="back-second-btn">Back</button>
+  </div>
+
+  <!-- Background Music -->
+  <audio id="bg-music" src="love.mp3" loop></audio>
 
   <script src="script.js"></script>
 </body>

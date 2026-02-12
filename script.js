@@ -1,9 +1,4 @@
 const noBtn = document.getElementById("no-btn");
-const yesBtn = document.getElementById("yes-btn");
-const firstCard = document.getElementById("first-card");
-const secondCard = document.getElementById("second-card");
-const backBtn = document.getElementById("back-btn");
-
 let targetX = 0, targetY = 0;
 let currentX = 0, currentY = 0;
 let animating = false;
@@ -19,14 +14,25 @@ function resetNoButton() {
 resetNoButton();
 
 // Escape behavior
-function triggerEscape() {
+function triggerEscape(e) {
   const screenW = window.innerWidth;
   const screenH = window.innerHeight;
   const btnRect = noBtn.getBoundingClientRect();
-  const margin = 50;
 
-  targetX = Math.random() * (screenW - btnRect.width - margin);
-  targetY = Math.random() * (screenH - btnRect.height - margin);
+  // Cursor/touch position
+  let pointerX = e.clientX || (e.touches && e.touches[0].clientX);
+  let pointerY = e.clientY || (e.touches && e.touches[0].clientY);
+
+  // Decide direction away from pointer
+  let offsetX = (btnRect.left + btnRect.width/2 < pointerX) ? -100 : 100;
+  let offsetY = (btnRect.top + btnRect.height/2 < pointerY) ? -60 : 60;
+
+  targetX = btnRect.left + offsetX;
+  targetY = btnRect.top + offsetY;
+
+  // Clamp inside screen
+  targetX = Math.max(20, Math.min(screenW - btnRect.width - 20, targetX));
+  targetY = Math.max(20, Math.min(screenH - btnRect.height - 20, targetY));
 
   noBtn.style.position = "absolute";
 
@@ -39,8 +45,8 @@ noBtn.addEventListener("touchstart", triggerEscape);
 function animateNoBtn() {
   animating = true;
   function step() {
-    currentX = lerp(currentX, targetX, 0.1);
-    currentY = lerp(currentY, targetY, 0.1);
+    currentX = lerp(currentX, targetX, 0.12);
+    currentY = lerp(currentY, targetY, 0.12);
     noBtn.style.left = currentX + "px";
     noBtn.style.top = currentY + "px";
 
@@ -56,41 +62,3 @@ function animateNoBtn() {
 function lerp(a, b, t) {
   return a + (b - a) * t;
 }
-
-// Yes button behavior
-yesBtn.addEventListener("click", () => {
-  firstCard.style.opacity = "0";
-  firstCard.style.transform = "scale(0.9)";
-  setTimeout(() => {
-    firstCard.classList.add("hidden");
-    secondCard.classList.remove("hidden");
-    secondCard.style.opacity = "1";
-    secondCard.style.transform = "scale(1)";
-    createHeartsBurst();
-  }, 500);
-});
-
-// Hearts burst
-function createHeartsBurst() {
-  const colors = ["#ffb6c1", "#ff69b4", "#ffc0cb", "#ff7f7f"];
-  for (let i = 0; i < 20; i++) {
-    const heart = document.createElement("div");
-    heart.className = "heart";
-    heart.textContent = "💖";
-    heart.style.left = (Math.random() * window.innerWidth) + "px";
-    heart.style.top = (window.innerHeight - 50) + "px";
-    heart.style.color = colors[Math.floor(Math.random()*colors.length)];
-    document.body.appendChild(heart);
-
-    setTimeout(() => heart.remove(), 5000);
-  }
-}
-
-// Back button
-backBtn.addEventListener("click", () => {
-  secondCard.classList.add("hidden");
-  firstCard.classList.remove("hidden");
-  firstCard.style.opacity = "1";
-  firstCard.style.transform = "scale(1)";
-  resetNoButton();
-});

@@ -8,18 +8,18 @@ let targetX = 0, targetY = 0;
 let currentX = 0, currentY = 0;
 let animating = false;
 
-// Initialize No button position
-function initNoButton() {
-  const cardRect = firstCard.getBoundingClientRect();
-  currentX = cardRect.width/2 + 60;
-  currentY = cardRect.height/2 + 40;
-  noBtn.style.left = currentX + "px";
-  noBtn.style.top = currentY + "px";
+// Reset No button inside card
+function resetNoButton() {
+  noBtn.style.position = "relative";
+  noBtn.style.left = "0px";
+  noBtn.style.top = "0px";
+  currentX = 0;
+  currentY = 0;
 }
-initNoButton();
+resetNoButton();
 
 // Escape behavior
-noBtn.addEventListener("mouseenter", () => {
+function triggerEscape() {
   const screenW = window.innerWidth;
   const screenH = window.innerHeight;
   const btnRect = noBtn.getBoundingClientRect();
@@ -28,8 +28,13 @@ noBtn.addEventListener("mouseenter", () => {
   targetX = Math.random() * (screenW - btnRect.width - margin);
   targetY = Math.random() * (screenH - btnRect.height - margin);
 
+  noBtn.style.position = "absolute";
+
   if (!animating) animateNoBtn();
-});
+}
+
+noBtn.addEventListener("mouseenter", triggerEscape);
+noBtn.addEventListener("touchstart", triggerEscape);
 
 function animateNoBtn() {
   animating = true;
@@ -68,16 +73,16 @@ yesBtn.addEventListener("click", () => {
 // Hearts burst
 function createHeartsBurst() {
   const colors = ["#ffb6c1", "#ff69b4", "#ffc0cb", "#ff7f7f"];
-  for (let i = 0; i < 15; i++) {
+  for (let i = 0; i < 20; i++) {
     const heart = document.createElement("div");
     heart.className = "heart";
     heart.textContent = "💖";
-    heart.style.left = (window.innerWidth/2 + (Math.random()*200 - 100)) + "px";
-    heart.style.top = (window.innerHeight/2) + "px";
+    heart.style.left = (Math.random() * window.innerWidth) + "px";
+    heart.style.top = (window.innerHeight - 50) + "px";
     heart.style.color = colors[Math.floor(Math.random()*colors.length)];
     document.body.appendChild(heart);
 
-    setTimeout(() => heart.remove(), 4000);
+    setTimeout(() => heart.remove(), 5000);
   }
 }
 
@@ -87,5 +92,5 @@ backBtn.addEventListener("click", () => {
   firstCard.classList.remove("hidden");
   firstCard.style.opacity = "1";
   firstCard.style.transform = "scale(1)";
-  initNoButton();
+  resetNoButton();
 });

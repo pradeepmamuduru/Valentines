@@ -1,48 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Valentine 💖</title>
-  <link rel="stylesheet" href="style.css"/>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Valentine — Tejaswini 💖</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="overlay"></div>
+  <!-- Background overlay -->
+  <div class="bg-overlay"></div>
 
-  <!-- First Screen -->
-  <div class="card" id="first-card">
-    <h1 class="romantic-text">Will you be my Valentine, Tejaswini? 💖</h1>
-    <div class="buttons">
-      <button id="yes-btn">Yes 💖</button>
-      <button id="no-btn">No 😜</button>
-    </div>
-  </div>
+  <!-- Global audio (must be started by user gesture) -->
+  <audio id="love-audio" src="love.mp3" loop preload="auto"></audio>
 
-  <!-- Second Screen -->
-  <div class="card hidden" id="second-card">
-    <h1 class="romantic-text">
-      Yaaay!!! 🎉💞<br/>
-      You just made me the happiest person ❤️
-    </h1>
-    <div class="buttons">
-      <button id="back-btn">Back</button>
-      <button id="message-btn">A message from Jungkook 💌</button>
-    </div>
-  </div>
+  <!-- Global floating hearts container (all screens) -->
+  <div id="global-hearts" aria-hidden="true"></div>
 
-  <!-- Third Screen -->
-  <div class="card hidden" id="third-card">
-    <h1 class="romantic-text">
-      Have a good day 🌸<br/>
-      Take good sleep 😴<br/>
-      Always smile ❤️<br/>
-      I’m always proud of you 💖
-    </h1>
-    <button id="back-second-btn">Back</button>
-  </div>
+  <!-- Falling petals container -->
+  <div id="petals" aria-hidden="true"></div>
 
-  <!-- Background Music -->
-  <audio id="bg-music" src="love.mp3" loop></audio>
+  <!-- Screen 1: First Card -->
+  <main id="screen-1" class="screen active" aria-live="polite">
+    <section class="card" id="first-card" role="dialog" aria-label="Valentine card">
+      <h1 class="title">Will you be my Valentine, <span class="name">Tejaswini</span>? 💖</h1>
+      <div class="button-row" id="button-row">
+        <button id="yes-btn" class="pill primary">Yes 💖</button>
+        <button id="no-btn" class="pill neutral">No 😜</button>
+      </div>
+    </section>
+  </main>
+
+  <!-- Screen 2: Celebration -->
+  <main id="screen-2" class="screen" aria-hidden="true">
+    <section class="card large" id="second-card" role="region" aria-label="Celebration">
+      <h1 class="title big">Yaaay!!! 🎉💞<br/>You just made me the happiest person ❤️</h1>
+      <div class="controls">
+        <button id="back-to-1" class="pill secondary">Back</button>
+        <button id="to-3" class="pill primary">A message from Jungkook 💌</button>
+      </div>
+    </section>
+  </main>
+
+  <!-- Screen 3: Message -->
+  <main id="screen-3" class="screen" aria-hidden="true">
+    <section class="card large" id="third-card" role="region" aria-label="Message">
+      <div class="message-box">
+        <p>Have a good day 🌸</p>
+        <p>Take good sleep 😴</p>
+        <p>Always smile ❤️</p>
+        <p>I’m always proud of you 💖</p>
+      </div>
+      <div class="controls">
+        <button id="back-to-2" class="pill secondary">Back</button>
+      </div>
+    </section>
+  </main>
 
   <script src="script.js"></script>
 </body>

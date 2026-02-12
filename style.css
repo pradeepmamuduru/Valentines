@@ -1,21 +1,40 @@
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
-  font-family: 'Segoe UI', sans-serif;
+  font-family: "Segoe UI", sans-serif;
   height: 100vh;
   background: url("roses.jpg") no-repeat center center/cover;
+  overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+}
+
 .container {
-  background: rgba(0,0,0,0.55);
+  position: relative;
+  z-index: 2;
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(8px);
   color: white;
   padding: 50px;
-  border-radius: 25px;
+  border-radius: 30px;
   text-align: center;
-  backdrop-filter: blur(5px);
-  box-shadow: 0 0 30px rgba(255,0,100,0.6);
+  box-shadow: 0 0 40px rgba(255,0,80,0.7);
+  animation: glow 3s infinite alternate;
+}
+
+@keyframes glow {
+  from { box-shadow: 0 0 25px rgba(255,0,80,.5); }
+  to { box-shadow: 0 0 60px rgba(255,0,120,.9); }
 }
 
 .hidden {
@@ -23,26 +42,15 @@ body {
 }
 
 h1 {
-  font-size: 42px;
-  margin-bottom: 30px;
+  font-size: clamp(28px, 5vw, 44px);
 }
 
-p {
-  font-size: 22px;
-}
-
-.buttons {
-  position: relative;
-  height: 120px;
-}
-
-button {
-  padding: 15px 35px;
+.buttons button {
+  padding: 16px 38px;
   font-size: 20px;
-  border-radius: 15px;
+  border-radius: 18px;
   border: none;
   cursor: pointer;
-  transition: transform 0.15s ease;
 }
 
 #yesBtn {
@@ -52,21 +60,28 @@ button {
 
 #noBtn {
   background: #eee;
-  position: absolute;
+  position: fixed;
+  z-index: 999;
+}
+
+.heart {
+  position: fixed;
+  font-size: 24px;
+  animation: float 6s linear infinite;
+}
+
+@keyframes float {
+  from { transform: translateY(110vh); opacity:1; }
+  to { transform: translateY(-20vh); opacity:0; }
 }
 
 .confetti {
   position: fixed;
   width: 10px;
   height: 10px;
-  background: red;
-  top: -10px;
   animation: fall linear infinite;
 }
 
 @keyframes fall {
-  to {
-    transform: translateY(110vh) rotate(360deg);
-  }
+  to { transform: translateY(110vh) rotate(720deg); }
 }
-

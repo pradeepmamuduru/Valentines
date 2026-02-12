@@ -78,12 +78,26 @@ yesBtn.addEventListener("click", () => {
 });
 
 // Hearts burst
-function createHeartsBurst() {
+function createHeartsBurst() 
+{
   const colors = ["#ffb6c1", "#ff69b4", "#ffc0cb", "#ff7f7f"];
-  for (let i = 0; i < 20; i++) {
+  for (let i = 0; i < 30; i++) 
+  {
     const heart = document.createElement("div");
     heart.className = "heart";
-    heart.textContent = "💖";
+    heart.textContent = "💕";
+    heart.style.left = (Math.random() * window.innerWidth) + "px";
+    heart.style.top = (window.innerHeight - 50) + "px";
+    heart.style.color = colors[Math.floor(Math.random()*colors.length)];
+    document.body.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 5000);
+  }
+  for (let i = 0; i < 30; i++) 
+  {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.textContent = "💗";
     heart.style.left = (Math.random() * window.innerWidth) + "px";
     heart.style.top = (window.innerHeight - 50) + "px";
     heart.style.color = colors[Math.floor(Math.random()*colors.length)];

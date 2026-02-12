@@ -19,20 +19,17 @@ function resetNoButton() {
 resetNoButton();
 
 // Escape behavior
-function triggerEscape(e) {
+function triggerEscape() {
   const screenW = window.innerWidth;
   const screenH = window.innerHeight;
   const btnRect = noBtn.getBoundingClientRect();
 
-  // Decide offset away from pointer
-  let pointerX = e.clientX || (e.touches && e.touches[0].clientX);
-  let pointerY = e.clientY || (e.touches && e.touches[0].clientY);
+  // Random direction
+  const angle = Math.random() * Math.PI * 2;
+  const distance = 120;
 
-  let offsetX = (btnRect.left + btnRect.width/2 < pointerX) ? -80 : 80;
-  let offsetY = (btnRect.top + btnRect.height/2 < pointerY) ? -60 : 60;
-
-  targetX = currentX + offsetX;
-  targetY = currentY + offsetY;
+  targetX = currentX + Math.cos(angle) * distance;
+  targetY = currentY + Math.sin(angle) * distance;
 
   // Clamp inside screen
   targetX = Math.max(20, Math.min(screenW - btnRect.width - 20, targetX));
@@ -49,8 +46,8 @@ noBtn.addEventListener("touchstart", triggerEscape);
 function animateNoBtn() {
   animating = true;
   function step() {
-    currentX = lerp(currentX, targetX, 0.15);
-    currentY = lerp(currentY, targetY, 0.15);
+    currentX = lerp(currentX, targetX, 0.12);
+    currentY = lerp(currentY, targetY, 0.12);
     noBtn.style.left = currentX + "px";
     noBtn.style.top = currentY + "px";
 

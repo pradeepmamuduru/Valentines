@@ -3,46 +3,70 @@ const yesBtn = document.getElementById("yesBtn");
 const page1 = document.getElementById("page1");
 const page2 = document.getElementById("page2");
 
-// keep inside 90% of screen
-function moveNoBtn() {
-  const maxX = window.innerWidth * 0.9 - noBtn.offsetWidth;
-  const maxY = window.innerHeight * 0.9 - noBtn.offsetHeight;
+let targetX = window.innerWidth / 2;
+let targetY = window.innerHeight / 2;
+let currentX = targetX;
+let currentY = targetY;
 
-  const x = Math.random() * maxX;
-  const y = Math.random() * maxY;
+function getBounds() {
+  const rect = page1.getBoundingClientRect();
+  const overflowX = rect.width * 0.15;
+  const overflowY = rect.height * 0.15;
 
-  noBtn.style.left = x + "px";
-  noBtn.style.top = y + "px";
+  return {
+    minX: rect.left - overflowX,
+    maxX: rect.right - noBtn.offsetWidth + overflowX,
+    minY: rect.top - overflowY,
+    maxY: rect.bottom - noBtn.offsetHeight + overflowY
+  };
 }
 
-noBtn.addEventListener("mouseenter", moveNoBtn);
-noBtn.addEventListener("touchstart", moveNoBtn);
+function moveTarget() {
+  const b = getBounds();
+  targetX = Math.random() * (b.maxX - b.minX) + b.minX;
+  targetY = Math.random() * (b.maxY - b.minY) + b.minY;
+}
+
+function animate() {
+  currentX += (targetX - currentX) * 0.12;
+  currentY += (targetY - currentY) * 0.12;
+
+  noBtn.style.left = currentX + "px";
+  noBtn.style.top = currentY + "px";
+
+  requestAnimationFrame(animate);
+}
+
+animate();
+
+noBtn.addEventListener("mouseenter", moveTarget);
+noBtn.addEventListener("touchstart", moveTarget);
 
 yesBtn.addEventListener("click", () => {
-  page1.classList.add("hidden");
-  page2.classList.remove("hidden");
-  startSparkles();
+  createHearts();
+
+  setTimeout(() => {
+    page1.classList.add("hidden");
+    page2.classList.remove("hidden");
+  }, 600);
 });
 
 function goBack() {
   page2.classList.add("hidden");
   page1.classList.remove("hidden");
-
-  // reset No button to center area
-  noBtn.style.left = "55%";
-  noBtn.style.top = "55%";
+  moveTarget();
 }
 
-// sparkle stars
-function startSparkles() {
-  for(let i=0;i<80;i++){
-    const star = document.createElement("div");
-    star.className="star";
-    star.innerHTML="✨";
-    star.style.left=Math.random()*100+"vw";
-    star.style.animationDuration=Math.random()*3+2+"s";
-    document.body.appendChild(star);
+function createHearts() {
+  for (let i = 0; i < 18; i++) {
+    const heart = document.createElement("div");
+    heart.className = "celebrate-heart";
+    heart.innerHTML = "❤";
+    heart.style.left = (window.innerWidth / 2 + (Math.random() * 200 - 100)) + "px";
+    heart.style.top = (window.innerHeight / 2 + (Math.random() * 100 - 50)) + "px";
 
-    setTimeout(()=>star.remove(),5000);
+    document.body.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 3000);
   }
 }

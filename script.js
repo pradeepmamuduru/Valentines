@@ -3,7 +3,7 @@ const yesBtn = document.getElementById("yes-btn");
 const valentineCard = document.getElementById("valentine-card");
 const yayCard = document.getElementById("yay-card");
 const backBtn = document.getElementById("back-btn");
-
+ 
 let targetX = 0, targetY = 0;
 let currentX = 0, currentY = 0;
 let animating = false;

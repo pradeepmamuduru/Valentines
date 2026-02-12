@@ -1,17 +1,16 @@
 const noBtn = document.getElementById("no-btn");
 const yesBtn = document.getElementById("yes-btn");
-const valentineCard = document.getElementById("valentine-card");
-const yayCard = document.getElementById("yay-card");
+const firstCard = document.getElementById("first-card");
+const secondCard = document.getElementById("second-card");
 const backBtn = document.getElementById("back-btn");
- 
+
 let targetX = 0, targetY = 0;
 let currentX = 0, currentY = 0;
 let animating = false;
 
-// Position No button initially inside card
+// Initialize No button position
 function initNoButton() {
-  const cardRect = valentineCard.getBoundingClientRect();
-  const btnRect = noBtn.getBoundingClientRect();
+  const cardRect = firstCard.getBoundingClientRect();
   currentX = cardRect.width/2 + 60;
   currentY = cardRect.height/2 + 40;
   noBtn.style.left = currentX + "px";
@@ -21,14 +20,13 @@ initNoButton();
 
 // Escape behavior
 noBtn.addEventListener("mouseenter", () => {
-  const cardRect = valentineCard.getBoundingClientRect();
-  const maxX = cardRect.width * 0.85;
-  const maxY = cardRect.height * 0.85;
-  const minX = cardRect.width * 0.15;
-  const minY = cardRect.height * 0.15;
+  const screenW = window.innerWidth;
+  const screenH = window.innerHeight;
+  const btnRect = noBtn.getBoundingClientRect();
+  const margin = 50;
 
-  targetX = Math.random() * (maxX - minX) + minX;
-  targetY = Math.random() * (maxY - minY) + minY;
+  targetX = Math.random() * (screenW - btnRect.width - margin);
+  targetY = Math.random() * (screenH - btnRect.height - margin);
 
   if (!animating) animateNoBtn();
 });
@@ -56,31 +54,38 @@ function lerp(a, b, t) {
 
 // Yes button behavior
 yesBtn.addEventListener("click", () => {
-  createHeartsBurst();
+  firstCard.style.opacity = "0";
+  firstCard.style.transform = "scale(0.9)";
   setTimeout(() => {
-    valentineCard.classList.add("hidden");
-    yayCard.classList.remove("hidden");
-  }, 1000);
+    firstCard.classList.add("hidden");
+    secondCard.classList.remove("hidden");
+    secondCard.style.opacity = "1";
+    secondCard.style.transform = "scale(1)";
+    createHeartsBurst();
+  }, 500);
 });
 
+// Hearts burst
 function createHeartsBurst() {
-  const colors = ["#ff69b4", "#ff1493"];
-  for (let i = 0; i < 10; i++) {
+  const colors = ["#ffb6c1", "#ff69b4", "#ffc0cb", "#ff7f7f"];
+  for (let i = 0; i < 15; i++) {
     const heart = document.createElement("div");
     heart.className = "heart";
     heart.textContent = "💖";
-    heart.style.left = (window.innerWidth/2 + (Math.random()*100 - 50)) + "px";
+    heart.style.left = (window.innerWidth/2 + (Math.random()*200 - 100)) + "px";
     heart.style.top = (window.innerHeight/2) + "px";
     heart.style.color = colors[Math.floor(Math.random()*colors.length)];
     document.body.appendChild(heart);
 
-    setTimeout(() => heart.remove(), 2000);
+    setTimeout(() => heart.remove(), 4000);
   }
 }
 
 // Back button
 backBtn.addEventListener("click", () => {
-  yayCard.classList.add("hidden");
-  valentineCard.classList.remove("hidden");
+  secondCard.classList.add("hidden");
+  firstCard.classList.remove("hidden");
+  firstCard.style.opacity = "1";
+  firstCard.style.transform = "scale(1)";
   initNoButton();
 });

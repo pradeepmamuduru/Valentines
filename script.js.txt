@@ -1,0 +1,18 @@
+const noBtn = document.getElementById("noBtn");
+const yesBtn = document.getElementById("yesBtn");
+
+noBtn.addEventListener("mouseover", () => {
+  const x = Math.random() * 300 - 150;
+  const y = Math.random() * 300 - 150;
+  noBtn.style.transform = `translate(${x}px, ${y}px)`;
+});
+
+yesBtn.addEventListener("click", () => {
+  document.getElementById("page1").classList.add("hidden");
+  document.getElementById("page2").classList.remove("hidden");
+});
+
+function goBack() {
+  document.getElementById("page2").classList.add("hidden");
+  document.getElementById("page1").classList.remove("hidden");
+}

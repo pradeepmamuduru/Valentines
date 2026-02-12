@@ -12,7 +12,7 @@ const screens = {
 const audio = document.getElementById("love-audio");
 
 let currentX = 0, currentY = 0, targetX = 0, targetY = 0, animating = false;
-let noMessages = ["No…!", "Not again…!", "It’s not happening 😜"];
+let noMessages = ["No Darling…!", "Not again 😁…!", "It’s not happening Babe😜", ];
 let msgIndex = 0;
 
 // Show screen helper
@@ -23,7 +23,7 @@ function showScreen(n) {
 
 // Reset No button
 function resetNoButton() {
-  noBtn.textContent = "No 😜";
+  noBtn.textContent = "No 😡";
   msgIndex = 0;
   noBtn.style.position = "relative";
   noBtn.style.left = "0px";

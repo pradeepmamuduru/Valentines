@@ -1,37 +1,72 @@
 body {
-  font-family: Arial, sans-serif;
-  background: linear-gradient(135deg, #ff758c, #ff7eb3);
-  text-align: center;
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
   height: 100vh;
+  background: url("roses.jpg") no-repeat center center/cover;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .container {
-  background: white;
-  padding: 40px;
-  border-radius: 20px;
+  background: rgba(0,0,0,0.55);
+  color: white;
+  padding: 50px;
+  border-radius: 25px;
+  text-align: center;
+  backdrop-filter: blur(5px);
+  box-shadow: 0 0 30px rgba(255,0,100,0.6);
 }
 
 .hidden {
   display: none;
 }
 
+h1 {
+  font-size: 42px;
+  margin-bottom: 30px;
+}
+
+p {
+  font-size: 22px;
+}
+
+.buttons {
+  position: relative;
+  height: 120px;
+}
+
 button {
-  padding: 12px 25px;
-  font-size: 18px;
+  padding: 15px 35px;
+  font-size: 20px;
+  border-radius: 15px;
   border: none;
-  border-radius: 10px;
   cursor: pointer;
-  margin: 10px;
+  transition: transform 0.15s ease;
 }
 
 #yesBtn {
-  background: #ff4d6d;
+  background: #ff2d55;
   color: white;
 }
 
 #noBtn {
-  background: #ddd;
+  background: #eee;
+  position: absolute;
 }
+
+.confetti {
+  position: fixed;
+  width: 10px;
+  height: 10px;
+  background: red;
+  top: -10px;
+  animation: fall linear infinite;
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(110vh) rotate(360deg);
+  }
+}
+

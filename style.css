@@ -1,137 +1,89 @@
-:root{
-  --pink-1: #ffb6c1;
-  --pink-2: #ff69b4;
-  --peach: #ffc9b8;
-  --soft-red: #ff7f7f;
-  --glass-bg: rgba(255,255,255,0.08);
-  --glass-border: rgba(255,105,180,0.6);
-  --text-white: #fff;
-  --card-width: 520px;
-  --mobile-card-width: 92%;
-}
-
-/* Page background */
-*{box-sizing:border-box}
-html,body{height:100%;margin:0;font-family: "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial;}
-body{
-  background: url('roses.jpg') center center / cover no-repeat fixed;
-  display:flex;
-  align-items:center;
-  justify-content:center;
+body {
+  margin:0; padding:0;
+  height:100vh; width:100vw;
+  background:url('roses.jpg') center center / cover no-repeat fixed;
+  font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
   overflow:hidden;
-  -webkit-font-smoothing:antialiased;
-  -moz-osx-font-smoothing:grayscale;
 }
 
-/* dark overlay for contrast */
-.bg-overlay{
-  position:fixed; inset:0; z-index:0;
-  background: linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45));
+.overlay {
+  position:fixed; inset:0;
+  background:rgba(0,0,0,0.5);
+  z-index:0;
 }
 
-/* screens */
-.screen{
-  position:fixed; inset:0; display:flex; align-items:center; justify-content:center;
-  z-index:2; pointer-events:none; opacity:0; transform:scale(0.98); transition:opacity .45s ease, transform .45s ease;
+.screen {
+  position:fixed; inset:0;
+  display:flex; align-items:center; justify-content:center;
+  opacity:0; pointer-events:none;
+  transition:opacity .4s ease, transform .4s ease;
 }
-.screen.active{pointer-events:auto; opacity:1; transform:scale(1);}
+.screen.active { opacity:1; pointer-events:auto; transform:scale(1); }
 
-/* card */
-.card{
-  width:var(--card-width);
-  max-width:calc(100% - 40px);
-  padding:28px 28px;
+.card {
+  background:rgba(255,255,255,0.1);
+  backdrop-filter:blur(12px);
+  border:2px solid rgba(255,105,180,0.6);
   border-radius:18px;
-  background:var(--glass-bg);
-  border:2px solid var(--glass-border);
-  box-shadow: 0 8px 30px rgba(255,105,180,0.12), 0 0 40px rgba(255,105,180,0.06) inset;
-  backdrop-filter: blur(12px) saturate(120%);
-  color:var(--text-white);
+  box-shadow:0 0 20px rgba(255,105,180,0.6);
+  padding:28px;
   text-align:center;
-  pointer-events:auto;
+  color:#fff;
+  max-width:90%;
+  width:520px;
 }
 
-/* larger card for screens 2 & 3 */
-.card.large{ width: min(760px, 92%); padding:36px; }
-
-/* typography */
-.title{
-  margin:0 0 18px 0;
+h1 {
   font-size:1.6rem;
-  font-weight:600;
   font-style:italic;
-  letter-spacing:0.2px;
-  text-shadow: 0 2px 12px rgba(0,0,0,0.45);
-}
-.title.big{ font-size:2rem; line-height:1.15; }
-
-/* name highlight */
-.name{ font-family: "Brush Script MT", "Lucida Handwriting", "Segoe Script", cursive; font-weight:700; }
-
-/* buttons row */
-.button-row{ display:flex; gap:14px; justify-content:center; align-items:center; position:relative; height:64px; margin-top:8px; }
-
-/* pill buttons */
-.pill{
-  border:0; padding:12px 20px; border-radius:999px; font-size:1rem; cursor:pointer;
-  transition: transform .18s cubic-bezier(.2,.9,.2,1), box-shadow .18s ease;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.25);
-  user-select:none;
-}
-.pill:active{ transform: translateY(2px) scale(.995); }
-
-.primary{ background: linear-gradient(90deg,var(--pink-2),var(--pink-1)); color:#fff; box-shadow:0 10px 30px rgba(255,105,180,0.18); }
-.neutral{ background: #fff; color:var(--pink-2); font-weight:600; }
-
-/* secondary small */
-.secondary{ background:transparent; border:1px solid rgba(255,255,255,0.12); color:#fff; padding:10px 16px; }
-
-/* controls layout */
-.controls{ display:flex; gap:12px; justify-content:center; margin-top:18px; }
-
-/* message box (third screen) */
-.message-box{ font-size:1.05rem; line-height:1.6; text-align:left; max-width:520px; margin:0 auto; }
-
-/* hearts (global) */
-.heart{
-  position:fixed; pointer-events:none; z-index:1; will-change: transform, opacity;
-  font-size:18px; opacity:0.95; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.25));
-  transform-origin:center;
+  margin-bottom:1.5rem;
 }
 
-/* small pop animation for some hearts */
-@keyframes pop {
-  0%{ transform: translateY(0) scale(1); opacity:1; }
-  60%{ transform: translateY(-40px) scale(1.15); opacity:0.9; }
-  100%{ transform: translateY(-140px) scale(1.4); opacity:0; }
+.buttons {
+  display:flex;
+  justify-content:center;
+  gap:1rem;
 }
 
-/* falling petals */
-.petals{
-  position:fixed; inset:0; pointer-events:none; z-index:1; overflow:hidden;
+.pill {
+  border:none;
+  border-radius:999px;
+  padding:12px 20px;
+  font-size:1rem;
+  cursor:pointer;
+  transition:transform .2s ease;
 }
-.petal{
-  position:absolute; width:18px; height:18px; background:transparent; pointer-events:none;
-  transform-origin:center;
-  will-change: transform, opacity;
-  opacity:0.95;
+.pill:active { transform:scale(0.95); }
+
+.yes {
+  background:linear-gradient(90deg,#ff69b4,#ffb6c1);
+  color:#fff;
+}
+.no {
+  background:#fff;
+  color:#ff69b4;
+  font-weight:600;
 }
 
-/* responsive */
-@media (max-width:640px){
-  .card{ width:var(--mobile-card-width); padding:20px; border-radius:14px; }
-  .title{ font-size:1.25rem; }
-  .title.big{ font-size:1.4rem; }
-  .button-row{ height:72px; gap:10px; }
-  .pill{ padding:10px 14px; font-size:.95rem; }
+.message-box {
+  font-size:1.1rem;
+  line-height:1.6;
+  text-align:left;
 }
 
-/* subtle landing bounce when No button finishes move */
-.no-bounce{
-  animation: land-bounce .36s cubic-bezier(.2,.9,.2,1);
+/* Hearts */
+.heart {
+  position:fixed;
+  pointer-events:none;
+  font-size:18px;
+  opacity:0.9;
+  z-index:1;
 }
-@keyframes land-bounce{
-  0%{ transform: translateY(0) scale(1); }
-  40%{ transform: translateY(-6px) scale(1.03); }
-  100%{ transform: translateY(0) scale(1); }
+
+/* Petals */
+.petal {
+  position:absolute;
+  font-size:18px;
+  opacity:0.8;
+  pointer-events:none;
 }

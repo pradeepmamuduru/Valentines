@@ -1,48 +1,48 @@
 const noBtn = document.getElementById("noBtn");
 const yesBtn = document.getElementById("yesBtn");
+const page1 = document.getElementById("page1");
+const page2 = document.getElementById("page2");
 
-function escapeButton() {
-  const x = Math.random() * (window.innerWidth - 120);
-  const y = Math.random() * (window.innerHeight - 60);
+// keep inside 90% of screen
+function moveNoBtn() {
+  const maxX = window.innerWidth * 0.9 - noBtn.offsetWidth;
+  const maxY = window.innerHeight * 0.9 - noBtn.offsetHeight;
+
+  const x = Math.random() * maxX;
+  const y = Math.random() * maxY;
 
   noBtn.style.left = x + "px";
   noBtn.style.top = y + "px";
 }
 
-noBtn.addEventListener("mouseenter", escapeButton);
-noBtn.addEventListener("touchstart", escapeButton);
+noBtn.addEventListener("mouseenter", moveNoBtn);
+noBtn.addEventListener("touchstart", moveNoBtn);
 
 yesBtn.addEventListener("click", () => {
-  document.getElementById("page1").classList.add("hidden");
-  document.getElementById("page2").classList.remove("hidden");
-  startConfetti();
-  startHearts();
+  page1.classList.add("hidden");
+  page2.classList.remove("hidden");
+  startSparkles();
 });
 
 function goBack() {
-  document.getElementById("page2").classList.add("hidden");
-  document.getElementById("page1").classList.remove("hidden");
+  page2.classList.add("hidden");
+  page1.classList.remove("hidden");
+
+  // reset No button to center area
+  noBtn.style.left = "55%";
+  noBtn.style.top = "55%";
 }
 
-function startConfetti() {
-  for (let i = 0; i < 120; i++) {
-    const c = document.createElement("div");
-    c.className = "confetti";
-    c.style.left = Math.random()*100 + "vw";
-    c.style.background = `hsl(${Math.random()*360},100%,60%)`;
-    c.style.animationDuration = Math.random()*3+2+"s";
-    document.body.appendChild(c);
-    setTimeout(()=>c.remove(),5000);
+// sparkle stars
+function startSparkles() {
+  for(let i=0;i<80;i++){
+    const star = document.createElement("div");
+    star.className="star";
+    star.innerHTML="✨";
+    star.style.left=Math.random()*100+"vw";
+    star.style.animationDuration=Math.random()*3+2+"s";
+    document.body.appendChild(star);
+
+    setTimeout(()=>star.remove(),5000);
   }
-}
-
-function startHearts() {
-  setInterval(() => {
-    const heart = document.createElement("div");
-    heart.className = "heart";
-    heart.innerHTML = "❤️";
-    heart.style.left = Math.random()*100+"vw";
-    document.body.appendChild(heart);
-    setTimeout(()=>heart.remove(),6000);
-  }, 400);
 }
